@@ -25,9 +25,6 @@
         "name": "a"
     },
     "chapter": {
-        "content": "#nr1 > p",
-        "page": {
-            "url": "li.next > a"
-        }
+        "content": "#nr1 > p"
     }
 }
