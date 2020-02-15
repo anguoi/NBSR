@@ -1,0 +1,72 @@
+# @version 3.0
+# @author Guimi
+# 特别注意：不要删除此模板中任意一个空行！
+# ！！！！{{*.response.body.$.[0]}} 此类中，若匹配不到可以自行修改数字！！！
+# 需要下载 REST Client 插件（Vscode）
+# 记得修改 @hostname、@json，@json 为需要测试的文件相对路径/完整路径
+# @key 为搜索的书名
+# 完成之后，按照要求点 Send Request，便可进行测试
+@hostname = http://192.168.43.1
+@host = {{hostname}}:8888
+@json = www.gushiwen.org.json
+@key = 论语
+
+# @name set
+# -设置书源- 修改好之后，必须先点我下面的 Send Request！！！【先设置】
+POST {{host}}/dev/debug HTTP/1.1
+Content-Type: application/json
+
+< {{json}}
+
+###
+# @name auto
+# -联调- 点我下面的 Send Request！
+GET {{host}}/dev/debug/auto
+    ?key={{key}}
+
+###
+# @name rank
+# -排行榜- 点我下面的 Send Request！
+GET {{host}}/dev/debug/rank HTTP/1.1
+
+###
+
+# 【下面这四种】必须按照顺序来！！！
+
+###
+# @name search
+# -搜索- 点我下面的 Send Request！【第一步】
+GET {{host}}/dev/debug/search
+    ?key={{key}}
+
+###
+# @name detail
+# -详情- 点我下面的 Send Request！【第二步】
+POST {{host}}/dev/debug/detail HTTP/1.1
+Content-Type: application/json
+
+{{search.response.body.$[0]}}
+
+###
+# @name catalog
+# -目录- 点我下面的 Send Request!【第三步】
+POST {{host}}/dev/debug/catalog HTTP/1.1
+Content-Type: application/json
+
+{{detail.response.body.$}}
+
+###
+# @name chapter
+# -正文- 点我下面的 Send Request！【第四步】
+POST {{host}}/dev/debug/chapter HTTP/1.1
+Content-Type: application/json
+
+{{catalog.response.body.$.[0]}}
+
+###
+# @name install
+# -安装书源- 最后一步啦！若以上都通过啦，就可以安装到手机上啦！
+POST {{host}}/dev/install HTTP/1.1
+Content-Type: application/json
+
+< {{json}}

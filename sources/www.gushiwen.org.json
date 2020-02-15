@@ -1,0 +1,33 @@
+{
+    "name": "古诗文网",
+    "url": "www.gushiwen.org",
+    "version": 100,
+    "search": {
+        "url": "https://so.gushiwen.org/search.aspx?value=${key}",
+        "charset": "utf-8",
+        "list": ".sonspic",
+        "name": "b",
+        "cover": "img",
+        "summary": ".cont > p:last-child",
+        "detail": "a"
+    },
+    "detail": {
+        "name": "b",
+        "cover": "img",
+        "summary": ".sonspic > div.cont > p",
+        "catalog": ""
+    },
+    "catalog": {
+        "list": ".bookcont",
+        "orderBy": 0,
+        "booklet": {
+            "name": "strong",
+            "list": "span"
+        },
+        "chapter": "a",
+        "name": "a"
+    },
+    "chapter": {
+        "content": ".contson"
+    }
+}
