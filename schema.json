@@ -1,0 +1,189 @@
+{
+    "title": "JSON schema for DeepInk BookSources files",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "厚墨书源",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "title": "书源名称",
+            "description": "规范命名，请不要带无关符号等"
+        },
+        "url": {
+            "type": "string",
+            "title": "网站域名(书源唯一标识)",
+            "description": "不应带有 http:// 或 https://"
+        },
+        "version": {
+            "type": "integer",
+            "minimum": 100,
+            "default": 100,
+            "title": "版本号",
+            "description": "每次发布时至少加一,默认为 100(100=1.0.0)"
+        },
+        "search": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "title": "搜索地址",
+                    "description": "${key} 代表搜索关键词，搜索时自动替换为用户输入的词"
+                },
+                "charset": {
+                    "type": "string",
+                    "default": "utf-8",
+                    "title": "关键词编码",
+                    "description": ""
+                },
+                "list": {
+                    "type": "string",
+                    "title": "列表",
+                    "description": "提取结果元素的相同特征"
+                },
+                "name": {
+                    "type": "string",
+                    "title": "书名",
+                    "description": "必填项"
+                },
+                "author": {
+                    "type": "string",
+                    "title": "作者",
+                    "description": ""
+                },
+                "cover": {
+                    "type": "string",
+                    "title": "封面",
+                    "description": "厚墨自动补全 URL"
+                },
+                "summary": {
+                    "type": "string",
+                    "title": "简介",
+                    "description": ""
+                },
+                "detail": {
+                    "type": "string",
+                    "title": "详情",
+                    "description": "厚墨自动补全 URL"
+                }
+            }
+        },
+        "detail": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "title": "书名",
+                    "description": "搜索无此字段则必填，搜索有此字段选填"
+                },
+                "author": {
+                    "type": "string",
+                    "title": "作者",
+                    "description": "搜索无此字段则必填，搜索有此字段选填"
+                },
+                "cover": {
+                    "type": "string",
+                    "title": "封面",
+                    "description": "搜索无此字段则必填，搜索有此字段选填"
+                },
+                "summary": {
+                    "type": "string",
+                    "title": "简介",
+                    "description": "搜索无此字段则必填，搜索有此字段选填"
+                },
+                "status": {
+                    "type": "string",
+                    "title": "状态",
+                    "description": ""
+                },
+                "update": {
+                    "type": "string",
+                    "title": "更新时间",
+                    "description": ""
+                },
+                "lastChapter": {
+                    "type": "string",
+                    "title": "最新章节",
+                    "description": ""
+                },
+                "catalog": {
+                    "type": "string",
+                    "title": "目录地址",
+                    "description": "不填视为目录和详情相同地址"
+                }
+            }
+        },
+        "catalog": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "string",
+                    "title": "目录",
+                    "description": "章节或分卷列表"
+                },
+                "orderBy": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "排序方式",
+                    "description": "0 - 分卷正序章节正序\n1 - 分卷倒序章节倒序\n2 - 分卷正序章节倒序\n3 - 分卷倒序章节正序"
+                },
+                "booklet": {
+                    "type": "object",
+                    "title": "分卷",
+                    "description": "存在分卷描述",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "title": "分卷名",
+                            "description": ""
+                        },
+                        "list": {
+                            "type": "string",
+                            "title": "章节列表",
+                            "description": ""
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "title": "章节标题",
+                    "description": ""
+                },
+                "chapter": {
+                    "type": "string",
+                    "title": "章节",
+                    "description": "厚墨自动补全 URL"
+                },
+                "page": {
+                    "type": "string",
+                    "title": "分页",
+                    "description": "下一页链接元素"
+                }
+            }
+        },
+        "chapter": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string",
+                    "title": "正文",
+                    "description": "当返回 txt 文本时不需填写该字段"
+                },
+                "filter": {
+                    "type": "array",
+                    "title": "过滤标签",
+                    "description": "支持 CSSQuery 和 标签(例如：@div)"
+                },
+                "purify": {
+                    "type": "array",
+                    "title": "屏蔽规则",
+                    "description": "正则表达式"
+                },
+                "page": {
+                    "type": "string",
+                    "title": "分页",
+                    "description": "下一页链接元素"
+                }
+            }
+        }
+    }
+}
